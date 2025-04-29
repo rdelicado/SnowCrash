@@ -4,7 +4,7 @@
 int main(int ac, char **av) 
 {
     if (ac != 2) {
-        printf("Introduce un texto para descifrar");
+        printf("Enter a text to decrypt");
         exit(1);
     }
     
