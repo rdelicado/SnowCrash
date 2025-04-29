@@ -15,14 +15,21 @@
    Next, I checked the `/etc/passwd` file to see if I could find any useful information about the user `flag01`. There, I noticed that the entry for `flag01` had what appeared to be an encrypted password:
 
    ```
-   flag01:`42hDRfypTqqnw`:3001:3001::/home/flag/flag01:/bin/bash
+   flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
    ```
 
    The second field (`42hDRfypTqqnw`) corresponds to the encrypted password for `flag01`.
 
 3. **Crack the password with John the Ripper**
 
-   I saved that line in a file called `hash.txt` and used John the Ripper to try to crack the password:
+   In the previous level, the `john` file suggested that John the Ripper might be useful, but `/usr/sbin/john` turned out to be just a text file:
+
+   ```bash
+   file /usr/sbin/john
+   /usr/sbin/john: ASCII text
+   ```
+
+   Therefore, I used the external John the Ripper program to try to crack the password. I saved the relevant line from `/etc/passwd` in a file called `hash.txt` and ran:
 
    ```bash
    john hash.txt
