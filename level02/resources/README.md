@@ -142,3 +142,66 @@
 
 
 
+tcpdump -X -r level02.pcap  | grep -i "0x0030" > /tmp/pass.txt
+-X para hexadecimal
+-r para leer archivo
+Si lo pasas a decimal, 0x0030 = 48. Eso significa que en esa línea, los datos que ves empiezan en el byte número 48 del archivo o captura.
+Piensa que el archivo de datos es como una fila de casillas numeradas: 0, 1, 2, 3... y así sucesivamente.
+
+Entonces, la línea que dice 0x0030 significa: "Los bytes que te voy a mostrar están a partir del casillero 48."
+
+Esa posición es importante porque te ayuda a saber dónde están exactamente los datos que quieres leer o analizar, como la contraseña.
+
+cut -c23- /tmp/pass.txt
+cortamos a partir de la linea 23 o 21, segun...
+vemos ascii mas contrasena
+cut -c56- /tmp/pass.txt
+cortamos a partir de la linea aprox 56 vemos la contrena
+🧩 ¿Qué pasó exactamente?
+1. El binario pidió la contraseña
+Cuando ejecutaste el binario, imprimió:
+
+makefile
+Copiar
+Editar
+Password:
+Y tú o el programa empezó a escribir la contraseña letra por letra, en formato hexadecimal (como lo veías en /tmp/pass.txt).
+
+2. Se grabó la entrada del teclado
+En ese archivo se registraron los caracteres que se fueron escribiendo, y también los caracteres DEL (0x7f) cuando se pulsó la tecla de borrar (como cuando te equivocas y corriges).
+
+Ejemplo simplificado:
+
+css
+Copiar
+Editar
+f t _ w a n d r [DEL][DEL][DEL] N D R e l [DEL] L 0 L [DEL]
+3. Después de escribir la contraseña, se pulsó ENTER
+Al pulsar ENTER, el binario validó la contraseña y devolvió el mensaje:
+
+nginx
+Copiar
+Editar
+Login incorrect
+🤔 Pero entonces… ¿la contraseña era incorrecta?
+No. Lo importante es esto:
+
+❗ Tú no estabas ejecutando el binario para probar la contraseña ya reconstruida. Solo estabas capturando cómo se escribió mal y con errores.
+💡 ¿Cuándo fue "correcta" la contraseña?
+Nunca se llegó a probar la contraseña correcta (ft_waNDReLoL) en ese intento.
+
+Solo se grabó el intento con errores (y correcciones parciales), que resultó en:
+
+nginx
+Copiar
+Editar
+Login incorrect
+✅ ¿Qué debes hacer tú?
+Tú reconstruiste a mano la secuencia de caracteres, limpiando los caracteres borrados (DEL).
+Eso te dio:
+
+nginx
+Copiar
+Editar
+ft_waNDReLoL
+Y esa es la contraseña que debes probar ahora, manualmente, en el binario real.
