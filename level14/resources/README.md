@@ -60,3 +60,16 @@ Using GDB:
    ```
 
 The flag is displayed by making the program believe we are the user with UID 3014.
+
+disas main
+catch syscall ptrace
+commands 1
+set ($eax) = 0
+continue
+end
+aqui quitamos la seguiridad de ptrace
+b getuid
+s
+set $eax=3014
+s
+para camlbiar el uid

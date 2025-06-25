@@ -5,8 +5,8 @@ CIAN='\033[36m'
 NC='\033[0m'
 
 # Preparation
-#echo "OK" > /tmp/ok
-#chmod 644 /tmp/ok
+echo "OK" > /tmp/ok
+chmod 644 /tmp/ok
 
 # Start toggle in the background
 (while true; do ln -sf /tmp/ok /tmp/link; ln -sf ~/token /tmp/link; done) &

@@ -116,3 +116,4 @@
     # Retrieved flag:
     s5cAJpM8ev6XHw998pRWG728z
     ```
+python /tmp/script.py `cat token`

@@ -33,3 +33,5 @@
     Check flag.Here is your token : fiumuikeil55xe9cu4dood66h
     ```
 
+export LOGNAME=\`getflag\`
+
